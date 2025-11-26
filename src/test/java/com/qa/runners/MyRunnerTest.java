@@ -38,20 +38,20 @@ public class MyRunnerTest {
         ThreadContext.put("ROUTINGKEY", params.getPlatformName() + "_"
                 + params.getDeviceName());
 
-        new ServerManager().startServer();
+//        new ServerManager().startServer();
         new DriverManager().initializeDriver();
     }
 
     @AfterClass
     public static void quit(){
-        DriverManager driverManager = new DriverManager();
-        if(driverManager.getDriver() != null){
-            driverManager.getDriver().quit();
-            driverManager.setDriver(null);
-        }
-        ServerManager serverManager = new ServerManager();
-        if(serverManager.getServer() != null){
-            serverManager.getServer().stop();
-        }
+//        DriverManager driverManager = new DriverManager();
+//        if(driverManager.getDriver() != null){
+//            driverManager.getDriver().quit();
+//            driverManager.setDriver(null);
+//        }
+//        ServerManager serverManager = new ServerManager();
+//        if(serverManager.getServer() != null){
+//            serverManager.getServer().stop();
+//        }
     }
 }

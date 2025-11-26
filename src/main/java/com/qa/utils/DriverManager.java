@@ -5,6 +5,8 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.Properties;
 
 public class DriverManager {
     private static ThreadLocal<AppiumDriver> driver = new ThreadLocal<>();
@@ -21,24 +23,28 @@ public class DriverManager {
     public void initializeDriver() throws Exception {
         AppiumDriver driver = null;
         GlobalParams params = new GlobalParams();
-        PropertyManager props = new PropertyManager();
+        Properties props = new PropertyManager().getProps();
 
         if(driver == null){
             try{
                 utils.log().info("initializing Appium driver");
+                String appiumServerUrl = props.getProperty("appiumURL");
+
                 switch(params.getPlatformName()){
+
                     case "Android":
-                        driver = new AndroidDriver(new ServerManager().getServer().getUrl(), new CapabilitiesManager().getCaps());
+                        driver = new AndroidDriver(new URL(appiumServerUrl), new CapabilitiesManager().getCaps());
+                        this.setDriver(driver);
                         break;
                     case "iOS":
-                        driver = new IOSDriver(new ServerManager().getServer().getUrl(), new CapabilitiesManager().getCaps());
+                        driver = new IOSDriver(new URL(appiumServerUrl), new CapabilitiesManager().getCaps());
                         break;
                 }
                 if(driver == null){
                     throw new Exception("driver is null. ABORT!!!");
                 }
                 utils.log().info("Driver is initialized");
-                this.driver.set(driver);
+//                this.driver.set(driver);
             } catch (IOException e) {
                 e.printStackTrace();
                 utils.log().fatal("Driver initialization failure. ABORT !!!!" + e.toString());

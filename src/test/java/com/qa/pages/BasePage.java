@@ -19,10 +19,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Properties;
-
+//import io.appium.java_client.By;
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
 import static io.appium.java_client.touch.offset.PointOption.point;
-import static java.time.Duration.ofMillis;
+import java.time.Duration;
+
 
 public class BasePage {
     private AppiumDriver driver;
@@ -30,38 +31,29 @@ public class BasePage {
 
     public BasePage(){
         this.driver = new DriverManager().getDriver();
-        PageFactory.initElements(new AppiumFieldDecorator(this.driver), this);
+//        PageFactory.initElements(new AppiumFieldDecorator(this.driver), this);
     }
 
     public void waitForVisibility(WebElement e) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(TestUtils.WAIT));
+        WebDriverWait wait = new WebDriverWait(driver, TestUtils.WAIT);
         wait.until(ExpectedConditions.visibilityOf(e));
     }
 
     public void waitForVisibility(By e) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(TestUtils.WAIT));
+        WebDriverWait wait = new WebDriverWait(driver, TestUtils.WAIT);
         wait.until(ExpectedConditions.visibilityOfElementLocated(e));
     }
 
-    public void clear(WebElement e) {
-        waitForVisibility(e);
-        e.clear();
-    }
 
     public void click(WebElement e) {
         waitForVisibility(e);
         e.click();
     }
 
-    public void click(WebElement e, String msg) {
-        waitForVisibility(e);
-        utils.log().info(msg);
-        e.click();
-    }
 
-    public void click(By e, String msg) {
+    public void click(By e) {
         waitForVisibility(e);
-        utils.log().info(msg);
+//        utils.log().info(msg);
         driver.findElement(e).click();
     }
 
@@ -70,11 +62,6 @@ public class BasePage {
         e.sendKeys(txt);
     }
 
-    public void sendKeys(WebElement e, String txt, String msg) {
-        waitForVisibility(e);
-        utils.log().info(msg);
-        e.sendKeys(txt);
-    }
 
     public String getAttribute(WebElement e, String attribute) {
         waitForVisibility(e);
@@ -102,9 +89,9 @@ public class BasePage {
         return txt;
     }
 
-    public String getText(By e, String msg) {
+    public String getText(By e) {
         String txt;
-        switch(new GlobalParams().getPlatformName()){
+        switch(new GlobalParams().getPlatformName()) {
             case "Android":
                 txt = getAttribute(e, "text");
                 break;
@@ -114,7 +101,6 @@ public class BasePage {
             default:
                 throw new IllegalStateException("Unexpected value: " + new GlobalParams().getPlatformName());
         }
-        utils.log().info(msg + txt);
         return txt;
     }
 
@@ -142,39 +128,39 @@ public class BasePage {
         }
     }
 
-    public WebElement andScrollToElementUsingUiScrollable(String childLocAttr, String childLocValue) {
-        return driver.findElement(AppiumBy.androidUIAutomator(
-                "new UiScrollable(new UiSelector()" + ".scrollable(true)).scrollIntoView("
-                        + "new UiSelector()."+ childLocAttr +"(\"" + childLocValue + "\"));"));
-    }
+//    public WebElement andScrollToElementUsingUiScrollable(String childLocAttr, String childLocValue) {
+//        return driver.findElement(AppiumBy.androidUIAutomator(
+//                "new UiScrollable(new UiSelector()" + ".scrollable(true)).scrollIntoView("
+//                        + "new UiSelector()."+ childLocAttr +"(\"" + childLocValue + "\"));"));
+//    }
 
-    public WebElement iOSScrollToElementUsingMobileScroll(WebElement e) {
-        RemoteWebElement element = ((RemoteWebElement) e);
-        String elementID = element.getId();
-        HashMap<String, String> scrollObject = new HashMap<String, String>();
-        scrollObject.put("element", elementID);
-//	  scrollObject.put("direction", "down");
-//	  scrollObject.put("predicateString", "label == 'ADD TO CART'");
-//	  scrollObject.put("name", "test-ADD TO CART");
-        scrollObject.put("toVisible", "sdfnjksdnfkld");
-        driver.executeScript("mobile:scroll", scrollObject);
-        return e;
-    }
-
-    public By iOSScrollToElementUsingMobileScrollParent(WebElement parentE, String predicateString) {
-        RemoteWebElement parent = (RemoteWebElement)parentE;
-        String parentID = parent.getId();
-        HashMap<String, String> scrollObject = new HashMap<String, String>();
-        scrollObject.put("element", parentID);
-//	  scrollObject.put("direction", "down");
-	  scrollObject.put("predicateString", predicateString);
-//	  scrollObject.put("name", "test-ADD TO CART");
+//    public WebElement iOSScrollToElementUsingMobileScroll(WebElement e) {
+//        RemoteWebElement element = ((RemoteWebElement) e);
+//        String elementID = element.getId();
+//        HashMap<String, String> scrollObject = new HashMap<String, String>();
+//        scrollObject.put("element", elementID);
+////	  scrollObject.put("direction", "down");
+////	  scrollObject.put("predicateString", "label == 'ADD TO CART'");
+////	  scrollObject.put("name", "test-ADD TO CART");
 //        scrollObject.put("toVisible", "sdfnjksdnfkld");
-        driver.executeScript("mobile:scroll", scrollObject);
-        By m = AppiumBy.iOSNsPredicateString(predicateString);
-        System.out.println("Mobilelement is " + m);
-        return m;
-    }
+//        driver.executeScript("mobile:scroll", scrollObject);
+//        return e;
+//    }
+
+//    public By iOSScrollToElementUsingMobileScrollParent(WebElement parentE, String predicateString) {
+//        RemoteWebElement parent = (RemoteWebElement)parentE;
+//        String parentID = parent.getId();
+//        HashMap<String, String> scrollObject = new HashMap<String, String>();
+//        scrollObject.put("element", parentID);
+////	  scrollObject.put("direction", "down");
+//	  scrollObject.put("predicateString", predicateString);
+////	  scrollObject.put("name", "test-ADD TO CART");
+////        scrollObject.put("toVisible", "sdfnjksdnfkld");
+//        driver.executeScript("mobile:scroll", scrollObject);
+//        By m = AppiumBy.iOSNsPredicateString(predicateString);
+//        System.out.println("Mobilelement is " + m);
+//        return m;
+//    }
 
 /*    public MobileElement scrollToElement(MobileElement element, String direction) throws Exception {
         Dimension size = driver.manage().window().getSize();
@@ -246,7 +232,7 @@ public class BasePage {
 
     public boolean find(final WebElement element, int timeout) {
         try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
+            WebDriverWait wait = new WebDriverWait(driver, timeout);
             return wait.until(new ExpectedCondition<Boolean>() {
                 @Override
                 public Boolean apply(WebDriver driver) {
@@ -263,7 +249,7 @@ public class BasePage {
 
     public boolean find(final By element, int timeout) {
         try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
+            WebDriverWait wait = new WebDriverWait(driver, timeout);
             return wait.until(new ExpectedCondition<Boolean>() {
                 @Override
                 public Boolean apply(WebDriver driver) {
