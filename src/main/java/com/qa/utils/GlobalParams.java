@@ -4,6 +4,7 @@ public class GlobalParams {
     private static ThreadLocal<String> platformName = new ThreadLocal<String>();
     private static ThreadLocal<String> udid = new ThreadLocal<String>();
     private static ThreadLocal<String> deviceName = new ThreadLocal<String>();
+    private static ThreadLocal<String> appiumPort = new ThreadLocal<String>();
     private static ThreadLocal<String> systemPort = new ThreadLocal<String>();
     private static ThreadLocal<String> chromeDriverPort = new ThreadLocal<String>();
     private static ThreadLocal<String> wdaLocalPort = new ThreadLocal<String>();
@@ -31,6 +32,14 @@ public class GlobalParams {
 
     public void setDeviceName(String deviceName2) {
         deviceName.set(deviceName2);
+    }
+
+    public String getAppiumPort() {
+        return appiumPort.get();
+    }
+
+    public void setAppiumPort(String appiumPort2) {
+        appiumPort.set(appiumPort2);
     }
 
     public String getSystemPort() {
@@ -69,6 +78,8 @@ public class GlobalParams {
         GlobalParams params = new GlobalParams();
         params.setPlatformName(System.getProperty("platformName", "Android"));
         params.setUDID(System.getProperty("udid", "emulator-5554"));
+        params.setAppiumPort(System.getProperty("appiumPort", "4723"));
+        params.setSystemPort(System.getProperty("systemPort", "8200"));
 //        params.setDeviceName(System.getProperty("deviceName", "Pixel_5"));
 
         switch(params.getPlatformName()){

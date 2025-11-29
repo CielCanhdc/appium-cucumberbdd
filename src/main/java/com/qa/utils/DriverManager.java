@@ -28,7 +28,9 @@ public class DriverManager {
         if(driver == null){
             try{
                 utils.log().info("initializing Appium driver");
-                String appiumServerUrl = props.getProperty("appiumURL");
+                String appiumServerHost = props.getProperty("appiumServerHost");
+                String appiumServerPort = params.getAppiumPort();
+                String appiumServerUrl = appiumServerHost + ":" + appiumServerPort;
 
                 switch(params.getPlatformName()){
 

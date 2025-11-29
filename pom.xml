@@ -25,7 +25,13 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
-                    <useModulePath>false</useModulePath>
+<!--                    <useModulePath>false</useModulePath>-->
+                    <systemPropertyVariables>
+                        <platformName>Android</platformName>
+                        <udid>${udid}</udid>
+                        <appiumPort>${appiumPort}</appiumPort>
+                        <systemPort>${systemPort}</systemPort>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
         </plugins>
