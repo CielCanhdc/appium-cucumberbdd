@@ -7,7 +7,7 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.OutputType;
-
+import com.qa.utils.ScenarioContext;
 import java.io.IOException;
 
 public class Hooks {
@@ -25,8 +25,10 @@ public class Hooks {
                 + params.getDeviceName());
 
         new ServerManager().startServer();
-        new DriverManager().initializeDriver();*/
+        */
 //        new VideoManager().startRecording();
+        
+        new DriverManager().initializeDriver();
     }
 
     @After

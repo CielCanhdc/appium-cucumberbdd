@@ -35,11 +35,11 @@ public class MyRunnerTest {
         GlobalParams params = new GlobalParams();
         params.initializeGlobalParams();
 
-        ThreadContext.put("ROUTINGKEY", params.getPlatformName() + "_"
-                + params.getDeviceName());
+        // ThreadContext.put("ROUTINGKEY", params.getPlatformName() + "_"
+        //         + params.getDeviceName());
 
 //        new ServerManager().startServer();
-        new DriverManager().initializeDriver();
+        // new DriverManager().initializeDriver();
     }
 
     @AfterClass

@@ -1,6 +1,8 @@
 package com.qa.pages;
 
+import com.qa.locators.LoginLocator;
 import com.qa.utils.TestUtils;
+import io.appium.java_client.Setting;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import org.openqa.selenium.WebElement;
@@ -17,5 +19,10 @@ public class MenuPage extends BasePage{
 //		click(settingsBtn, "press Settings button");
 //		return new SettingsPage();
 //	}
+	public MenuPage() {}
+	public MenuPage tabFingerPrintAgainBtn() {
+		click(LoginLocator.fingerBtn);
+		return this;
+	}
 
 }
