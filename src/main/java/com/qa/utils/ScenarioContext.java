@@ -4,29 +4,36 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ScenarioContext {
-    private Map<String, Object> ctx = new HashMap<>();;
-    private static ScenarioContext instance;
+
+    // Mỗi thread (tức mỗi scenario khi chạy song song) có 1 instance riêng
+    private static final ThreadLocal<ScenarioContext> threadLocalInstance =
+            ThreadLocal.withInitial(ScenarioContext::new);
+
+    private final Map<String, Object> ctx;
 
     private ScenarioContext() {
         ctx = new HashMap<>();
     }
 
-    public static synchronized ScenarioContext getInstance() {
-        if (instance == null) {
-            instance = new ScenarioContext();
-        }
-        return instance;
+    // Lấy instance theo từng thread
+    public static ScenarioContext getInstance() {
+        return threadLocalInstance.get();
     }
 
     public void setContext(String key, Object value) {
         ctx.put(key, value);
     }
 
-    public Object getContext(String key){
+    public Object getContext(String key) {
         return ctx.get(key);
     }
 
-    public Boolean contains(String key){
+    public boolean contains(String key) {
         return ctx.containsKey(key);
+    }
+
+    // Khi scenario chạy xong → clear để tránh memory leak
+    public static void clear() {
+        threadLocalInstance.remove();
     }
 }
