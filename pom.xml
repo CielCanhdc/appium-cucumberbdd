@@ -18,6 +18,16 @@
                     <target>21</target>
                 </configuration>
             </plugin>
+
+            <!-- Needed for running JUnit 5 tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <useModulePath>false</useModulePath>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -28,14 +38,24 @@
             <artifactId>cucumber-java</artifactId>
             <version>7.16.1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit -->
+
+        <!-- JUnit 5 runner for Cucumber -->
         <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit-platform-engine</artifactId>
+            <version>7.16.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Remove JUnit 4 runner -->
+        <!-- <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
             <version>7.16.1</version>
             <scope>test</scope>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/io.appium/java-client -->
+        </dependency> -->
+
+        <!-- Appium -->
         <dependency>
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
@@ -75,6 +95,20 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.10.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.10.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite</artifactId>
+            <version>1.10.0</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>

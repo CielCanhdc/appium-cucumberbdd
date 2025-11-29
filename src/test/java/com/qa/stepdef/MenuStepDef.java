@@ -5,7 +5,8 @@ import com.qa.pages.MenuPage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import com.qa.utils.ScenarioContext;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
+
 public class MenuStepDef {
     private ScenarioContext ctx = ScenarioContext.getInstance();
 //    public MenuStepDef(ScenarioContext ctx) {
@@ -15,6 +16,6 @@ public class MenuStepDef {
     public void clickSettingAgain() {
         new MenuPage().tabFingerPrintAgainBtn();
         String myName = (String) ctx.getContext("name");
-        Assert.assertEquals(myName, "Canhdc2");
+        Assertions.assertEquals(myName, "Canhdc2");
     }
 }
