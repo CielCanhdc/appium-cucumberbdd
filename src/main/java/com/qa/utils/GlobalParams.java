@@ -77,7 +77,7 @@ public class GlobalParams {
     public void initializeGlobalParams(){
         GlobalParams params = new GlobalParams();
         params.setPlatformName(System.getProperty("platformName", "Android"));
-        params.setUDID(System.getProperty("udid", "emulator-5554"));
+        params.setUDID(System.getProperty("udid", "emulator-5556"));
         params.setAppiumPort(System.getProperty("appiumPort", "4723"));
         params.setSystemPort(System.getProperty("systemPort", "8200"));
 //        params.setDeviceName(System.getProperty("deviceName", "Pixel_5"));

@@ -25,6 +25,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
+                    <parallel>methods</parallel>
+                    <threadCount>2</threadCount>
 <!--                    <useModulePath>false</useModulePath>-->
                     <systemPropertyVariables>
                         <platformName>Android</platformName>
@@ -36,6 +38,27 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <!-- Profile for Device 1 -->
+        <profile>
+            <id>device1</id>
+            <properties>
+                <udid>emulator-5554</udid>
+                <appiumPort>4723</appiumPort>
+                <systemPort>8200</systemPort>
+            </properties>
+        </profile>
+
+        <!-- Profile for Device 2 -->
+        <profile>
+            <id>device2</id>
+            <properties>
+                <udid>emulator-5556</udid>
+                <appiumPort>4725</appiumPort>
+                <systemPort>8201</systemPort>
+            </properties>
+        </profile>
+    </profiles>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
