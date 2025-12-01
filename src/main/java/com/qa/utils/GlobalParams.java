@@ -1,14 +1,22 @@
 package com.qa.utils;
 
 public class GlobalParams {
-    private static ThreadLocal<String> platformName = new ThreadLocal<String>();
-    private static ThreadLocal<String> udid = new ThreadLocal<String>();
-    private static ThreadLocal<String> deviceName = new ThreadLocal<String>();
-    private static ThreadLocal<String> appiumPort = new ThreadLocal<String>();
-    private static ThreadLocal<String> systemPort = new ThreadLocal<String>();
-    private static ThreadLocal<String> chromeDriverPort = new ThreadLocal<String>();
-    private static ThreadLocal<String> wdaLocalPort = new ThreadLocal<String>();
-    private static ThreadLocal<String> webkitDebugProxyPort = new ThreadLocal<String>();
+    // --- Singleton Pattern ---
+    private static final GlobalParams instance = new GlobalParams();
+    private GlobalParams() {}   // tránh new từ bên ngoài
+    public static GlobalParams getInstance() {
+        return instance;
+    }
+
+
+    private final ThreadLocal<String> platformName = new ThreadLocal<String>();
+    private final ThreadLocal<String> udid = new ThreadLocal<String>();
+    private final ThreadLocal<String> deviceName = new ThreadLocal<String>();
+    private final ThreadLocal<String> appiumPort = new ThreadLocal<String>();
+    private final ThreadLocal<String> systemPort = new ThreadLocal<String>();
+    private final ThreadLocal<String> chromeDriverPort = new ThreadLocal<String>();
+    private final ThreadLocal<String> wdaLocalPort = new ThreadLocal<String>();
+    private final ThreadLocal<String> webkitDebugProxyPort = new ThreadLocal<String>();
 
     public void setPlatformName(String platformName1){
         platformName.set(platformName1);
@@ -75,14 +83,14 @@ public class GlobalParams {
     }
 
     public void initializeGlobalParams(){
-        GlobalParams params = new GlobalParams();
-        params.setPlatformName(System.getProperty("platformName", "Android"));
-        params.setUDID(System.getProperty("udid", "emulator-5556"));
-        params.setAppiumPort(System.getProperty("appiumPort", "4723"));
-        params.setSystemPort(System.getProperty("systemPort", "8200"));
+//        GlobalParams params = new GlobalParams();
+        this.setPlatformName(System.getProperty("platformName", "Android"));
+//        this.setUDID(System.getProperty("udid", "not found"));
+//        this.setAppiumPort(System.getProperty("appiumPort", "4723"));
+//        this.setSystemPort(System.getProperty("systemPort", "8200"));
 //        params.setDeviceName(System.getProperty("deviceName", "Pixel_5"));
 
-        switch(params.getPlatformName()){
+        switch(this.getPlatformName()){
             case "Android":
 //                params.setSystemPort(System.getProperty("systemPort", "10000"));
 //                params.setChromeDriverPort(System.getProperty("chromeDriverPort", "11000"));

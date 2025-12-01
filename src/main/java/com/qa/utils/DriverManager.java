@@ -22,16 +22,17 @@ public class DriverManager {
 
     public void initializeDriver() throws Exception {
         AppiumDriver driver = null;
-        GlobalParams params = new GlobalParams();
+        GlobalParams params = GlobalParams.getInstance();
         Properties props = new PropertyManager().getProps();
 
         if(driver == null){
             try{
                 utils.log().info("initializing Appium driver");
                 String appiumServerHost = props.getProperty("appiumServerHost");
-                String appiumServerPort = params.getAppiumPort();
+                String appiumServerPort = props.getProperty("appiumPort");
                 String appiumServerUrl = appiumServerHost + ":" + appiumServerPort;
-
+                System.out.println(appiumServerUrl);
+                System.out.println(new CapabilitiesManager().getCaps());
                 switch(params.getPlatformName()){
 
                     case "Android":

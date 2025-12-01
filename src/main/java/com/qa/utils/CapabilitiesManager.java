@@ -10,7 +10,8 @@ public class CapabilitiesManager {
     TestUtils utils = new TestUtils();
 
     public DesiredCapabilities getCaps() throws IOException {
-        GlobalParams params = new GlobalParams();
+//        GlobalParams params = new GlobalParams();
+        GlobalParams params =  GlobalParams.getInstance();
         Properties props = new PropertyManager().getProps();
 
         try{
@@ -18,6 +19,7 @@ public class CapabilitiesManager {
             DesiredCapabilities caps = new DesiredCapabilities();
             caps.setCapability("appium:platformName", params.getPlatformName());
             caps.setCapability("appium:deviceId", params.getUDID());
+//            utils.log().info(params.getUDID());
 //            caps.setCapability("deviceName", params.getDeviceName());
 
             switch(params.getPlatformName()){
@@ -25,7 +27,8 @@ public class CapabilitiesManager {
                     caps.setCapability("appium:automationName", props.getProperty("androidAutomationName"));
                     caps.setCapability("appium:appPackage", props.getProperty("androidAppPackage"));
                     caps.setCapability("appium:appActivity", props.getProperty("androidAppActivity"));
-//                    caps.setCapability("systemPort", params.getSystemPort());
+                    caps.setCapability("appium:deviceId", props.getProperty("udid"));
+                    caps.setCapability("appium:systemPort", props.getProperty("systemPort"));
 //                    caps.setCapability("chromeDriverPort", params.getChromeDriverPort());
                     //String androidAppUrl = getClass().getResource(props.getProperty("androidAppLocation")).getFile();
 //                    String androidAppUrl = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"

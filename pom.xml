@@ -19,46 +19,33 @@
                 </configuration>
             </plugin>
 
-            <!-- Needed for running JUnit 5 tests -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.5</version>
-                <configuration>
-                    <parallel>methods</parallel>
-                    <threadCount>2</threadCount>
-<!--                    <useModulePath>false</useModulePath>-->
-                    <systemPropertyVariables>
-                        <platformName>Android</platformName>
-                        <udid>${udid}</udid>
-                        <appiumPort>${appiumPort}</appiumPort>
-                        <systemPort>${systemPort}</systemPort>
-                    </systemPropertyVariables>
-                </configuration>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-failsafe-plugin</artifactId>-->
+<!--                <version>3.2.5</version>-->
+
+<!--                <configuration>-->
+<!--                    <includes>-->
+<!--                        <include>**/MyRunnerTest.java</include>-->
+<!--                    </includes>-->
+
+<!--&lt;!&ndash;                    &lt;!&ndash; Chạy song song &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                    <parallel>all</parallel>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <threadCount>2</threadCount>&ndash;&gt;-->
+
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>integration-test</goal>-->
+<!--                            <goal>verify</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+
         </plugins>
     </build>
-    <profiles>
-        <!-- Profile for Device 1 -->
-        <profile>
-            <id>device1</id>
-            <properties>
-                <udid>emulator-5554</udid>
-                <appiumPort>4723</appiumPort>
-                <systemPort>8200</systemPort>
-            </properties>
-        </profile>
-
-        <!-- Profile for Device 2 -->
-        <profile>
-            <id>device2</id>
-            <properties>
-                <udid>emulator-5556</udid>
-                <appiumPort>4725</appiumPort>
-                <systemPort>8201</systemPort>
-            </properties>
-        </profile>
-    </profiles>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
