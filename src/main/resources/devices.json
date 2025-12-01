@@ -1,0 +1,25 @@
+{
+  "dev": [
+    {
+      "udid": "emulator-01",
+      "platformName": "android",
+      "deviceName": "Samsung S25",
+      "platformVersion": "16",
+      "appiumPort": 4723
+    },
+    {
+      "udid": "emulator-02",
+      "platformName": "android",
+      "deviceName": "Xiaomi",
+      "platformVersion": "16",
+      "appiumPort": 4725
+    }
+  ],
+  "prod": [
+    {
+      "platformName": "ios",
+      "deviceName": "iPhone 14 Pro Max",
+      "platformVersion": "16"
+    }
+  ]
+}

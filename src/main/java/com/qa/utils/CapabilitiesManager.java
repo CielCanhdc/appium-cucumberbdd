@@ -10,42 +10,30 @@ public class CapabilitiesManager {
     TestUtils utils = new TestUtils();
 
     public DesiredCapabilities getCaps() throws IOException {
-//        GlobalParams params = new GlobalParams();
         GlobalParams params =  GlobalParams.getInstance();
         Properties props = new PropertyManager().getProps();
 
         try{
-            utils.log().info("getting capabilities");
             DesiredCapabilities caps = new DesiredCapabilities();
+            if (!params.getEnv().equals("prod")) {
+                caps.setCapability("appium:deviceId", params.getUDID());
+            }
+
             caps.setCapability("appium:platformName", params.getPlatformName());
-            caps.setCapability("appium:deviceId", params.getUDID());
-//            utils.log().info(params.getUDID());
-//            caps.setCapability("deviceName", params.getDeviceName());
+            caps.setCapability("appium:platformVersion", params.getPlatformVersion());
+            caps.setCapability("appium:deviceName", params.getDeviceName());
 
             switch(params.getPlatformName()){
-                case "Android":
-                    caps.setCapability("appium:automationName", props.getProperty("androidAutomationName"));
-                    caps.setCapability("appium:appPackage", props.getProperty("androidAppPackage"));
-                    caps.setCapability("appium:appActivity", props.getProperty("androidAppActivity"));
-                    caps.setCapability("appium:deviceId", props.getProperty("udid"));
-                    caps.setCapability("appium:systemPort", props.getProperty("systemPort"));
-//                    caps.setCapability("chromeDriverPort", params.getChromeDriverPort());
-                    //String androidAppUrl = getClass().getResource(props.getProperty("androidAppLocation")).getFile();
-//                    String androidAppUrl = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
-//                            + File.separator + "resources" + File.separator + "apps" + File.separator + "Android.SauceLabs.Mobile.Sample.app.2.7.1.apk";
-                    utils.log().info(caps.toString());
-//                    caps.setCapability("app", androidAppUrl);
+                case "android":
+                    caps.setCapability("appium:automationName", props.getProperty("android.automationName"));
+                    caps.setCapability("appium:appPackage", props.getProperty("android.appPackage"));
+                    caps.setCapability("appium:appActivity", props.getProperty("android.appActivity"));
                     break;
-                case "iOS":
-                    caps.setCapability("automationName", props.getProperty("iOSAutomationName"));
-                    //String iOSAppUrl = getClass().getResource(props.getProperty("iOSAppLocation")).getFile();
-                    String iOSAppUrl = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test"
-                            + File.separator + "resources" + File.separator + "apps" + File.separator + "SwagLabsMobileApp.app";
-                    utils.log().info("appUrl is" + iOSAppUrl);
-                    caps.setCapability("bundleId", props.getProperty("iOSBundleId"));
-                    caps.setCapability("wdaLocalPort", params.getWdaLocalPort());
-                    caps.setCapability("webkitDebugProxyPort", params.getWebkitDebugProxyPort());
-                    caps.setCapability("app", iOSAppUrl);
+                case "ios":
+                    caps.setCapability("appium:automationName", props.getProperty("ios.automationName"));
+                    caps.setCapability("appium:bundleId", props.getProperty("ios.bundleId"));
+                    caps.setCapability("appium:wdaLocalPort", params.getWdaLocalPort());
+                    caps.setCapability("appium:webkitDebugProxyPort", params.getWebkitDebugProxyPort());
                     break;
             }
             return caps;

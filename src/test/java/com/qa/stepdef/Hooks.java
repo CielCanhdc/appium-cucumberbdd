@@ -3,6 +3,7 @@ package com.qa.stepdef;
 import io.cucumber.java.*;
 import com.qa.utils.GlobalParams;
 import com.qa.utils.DevicePool;
+import com.qa.utils.DriverManager;
 
 import java.io.IOException;
 import java.util.Map;
@@ -11,6 +12,7 @@ public class Hooks {
     private Map<String, Object> device;
     @BeforeAll
     public static void beforeAll() throws Exception {
+//        System.setProperty("env", "dev");
         DevicePool.initDevicePool();
     }
 
@@ -19,16 +21,14 @@ public class Hooks {
         GlobalParams params = GlobalParams.getInstance();
         params.initializeGlobalParams();
 
-        device = DevicePool.holdDevice();
-
+        device = DevicePool.takeDevice();
 
         params.setUDID(device.get("udid").toString());
         params.setAppiumPort(device.get("appiumPort").toString());
+        params.setPlatformName(device.get("platformName").toString());
 
 
-
-//
-//        new DriverManager().initializeDriver();
+        new DriverManager().initializeDriver();
     }
 
     @After
