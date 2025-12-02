@@ -1,27 +1,40 @@
 package com.qa.stepdef;
 
-import com.qa.pages.BasePage;
-import com.qa.utils.DriverManager;
 import io.cucumber.java.*;
 import com.qa.utils.GlobalParams;
-import org.openqa.selenium.OutputType;
-import com.qa.utils.ScenarioContext;
+import com.qa.utils.DevicePool;
+import com.qa.utils.DriverManager;
+
 import java.io.IOException;
+import java.util.Map;
 
 public class Hooks {
+    private Map<String, Object> device;
     @BeforeAll
     public static void beforeAll() throws Exception {
-        GlobalParams params = new GlobalParams();
-        params.initializeGlobalParams();
+//        System.setProperty("env", "dev");
+        DevicePool.initDevicePool();
     }
 
     @Before
     public void initialize() throws Exception {
+        GlobalParams params = GlobalParams.getInstance();
+        params.initializeGlobalParams();
+
+        device = DevicePool.takeDevice();
+
+        params.setUDID(device.get("udid").toString());
+        params.setAppiumPort(device.get("appiumPort").toString());
+        params.setPlatformName(device.get("platformName").toString());
+
+
         new DriverManager().initializeDriver();
     }
 
     @After
     public void quit(Scenario scenario) throws IOException {
+
+        DevicePool.releaseDevice(device);
 //        if(scenario.isFailed()){
 //            byte[] screenshot = new DriverManager().getDriver().getScreenshotAs(OutputType.BYTES);
 //            scenario.attach(screenshot, "image/png", scenario.getName());

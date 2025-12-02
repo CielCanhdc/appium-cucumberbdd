@@ -34,7 +34,8 @@ public class ServerManager {
     }
 
     public AppiumDriverLocalService WindowsGetAppiumService() {
-        GlobalParams params = new GlobalParams();
+//        GlobalParams params = new GlobalParams();
+        GlobalParams params = GlobalParams.getInstance();
         HashMap<String, String> environment = new HashMap<String, String>();
         environment.put("ANDROID_HOME", "/Users/admin/Library/Android/sdk");
         environment.put("JAVA_HOME", "/opt/homebrew/opt/openjdk");
@@ -51,7 +52,8 @@ public class ServerManager {
     }
 
     public AppiumDriverLocalService MacGetAppiumService() {
-        GlobalParams params = new GlobalParams();
+//        GlobalParams params = new GlobalParams();
+        GlobalParams params = GlobalParams.getInstance();
         HashMap<String, String> environment = new HashMap<String, String>();
 //        environment.put("PATH", "enter_your_path_here" + System.getenv("PATH"));
         environment.put("ANDROID_HOME", "/Users/admin/Library/Android/sdk");

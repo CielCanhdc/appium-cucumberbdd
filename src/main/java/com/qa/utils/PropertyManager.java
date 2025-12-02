@@ -10,11 +10,10 @@ public class PropertyManager {
 
     public Properties getProps() throws IOException {
         InputStream is = null;
-        String propsFileName = "config.properties";
+        String propsFileName = (System.getProperty("env", "dev").equals("prod")) ? "prod-env.properties" : "dev-env.properties";
 
         if(props.isEmpty()){
             try{
-                utils.log().info("loading config properties");
                 is = getClass().getClassLoader().getResourceAsStream(propsFileName);
                 props.load(is);
             } catch (IOException e) {

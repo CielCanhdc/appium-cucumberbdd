@@ -75,57 +75,59 @@ public class BasePage {
 
     public String getText(WebElement e, String msg) {
         String txt;
-        switch(new GlobalParams().getPlatformName()){
-            case "Android":
-                txt = getAttribute(e, "text");
-                break;
-            case "iOS":
-                txt = getAttribute(e, "label");
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + new GlobalParams().getPlatformName());
-        }
-        utils.log().info(msg + txt);
+//        switch(new GlobalParams().getPlatformName()){
+//            case "Android":
+//                txt = getAttribute(e, "text");
+//                break;
+//            case "iOS":
+//                txt = getAttribute(e, "label");
+//                break;
+//            default:
+//                throw new IllegalStateException("Unexpected value: " + new GlobalParams().getPlatformName());
+//        }
+//        utils.log().info(msg + txt);
+        txt = getAttribute(e, "text");
         return txt;
     }
 
     public String getText(By e) {
         String txt;
-        switch(new GlobalParams().getPlatformName()) {
-            case "Android":
-                txt = getAttribute(e, "text");
-                break;
-            case "iOS":
-                txt = getAttribute(e, "label");
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + new GlobalParams().getPlatformName());
-        }
+//        switch(new GlobalParams().getPlatformName()) {
+//            case "Android":
+//                txt = getAttribute(e, "text");
+//                break;
+//            case "iOS":
+//                txt = getAttribute(e, "label");
+//                break;
+//            default:
+//                throw new IllegalStateException("Unexpected value: " + new GlobalParams().getPlatformName());
+//        }
+        txt = getAttribute(e, "text");
         return txt;
     }
 
     public void closeApp() {
-        switch(new GlobalParams().getPlatformName()){
-            case "Android":
-                ((InteractsWithApps) driver).terminateApp(driver.getCapabilities().
-                    getCapability("appPackage").toString());
-                break;
-            case "iOS":
-                ((InteractsWithApps) driver).terminateApp(driver.getCapabilities().
-                        getCapability("bundleId").toString());
-        }
+//        switch(new GlobalParams().getPlatformName()){
+//            case "Android":
+//                ((InteractsWithApps) driver).terminateApp(driver.getCapabilities().
+//                    getCapability("appPackage").toString());
+//                break;
+//            case "iOS":
+//                ((InteractsWithApps) driver).terminateApp(driver.getCapabilities().
+//                        getCapability("bundleId").toString());
+//        }
     }
 
     public void launchApp() {
-        switch(new GlobalParams().getPlatformName()){
-            case "Android":
-                ((InteractsWithApps) driver).activateApp(driver.getCapabilities().
-                        getCapability("appPackage").toString());
-                break;
-            case "iOS":
-                ((InteractsWithApps) driver).activateApp(driver.getCapabilities().
-                        getCapability("bundleId").toString());
-        }
+//        switch(new GlobalParams().getPlatformName()){
+//            case "Android":
+//                ((InteractsWithApps) driver).activateApp(driver.getCapabilities().
+//                        getCapability("appPackage").toString());
+//                break;
+//            case "iOS":
+//                ((InteractsWithApps) driver).activateApp(driver.getCapabilities().
+//                        getCapability("bundleId").toString());
+//        }
     }
 
 //    public WebElement andScrollToElementUsingUiScrollable(String childLocAttr, String childLocValue) {

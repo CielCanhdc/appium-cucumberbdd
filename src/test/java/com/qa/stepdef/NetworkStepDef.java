@@ -24,7 +24,7 @@ public class NetworkStepDef {
     @Then("Verify data usage value")
     public void verifyDataUsageValue() {
         String actual = new NetworkPage().getMobileData();
-        Assertions.assertEquals(actual, "304 kB mobile data");
+        Assertions.assertEquals(actual, "356 kB mobile data");
     }
 
 

@@ -22,28 +22,35 @@ public class DriverManager {
 
     public void initializeDriver() throws Exception {
         AppiumDriver driver = null;
-        GlobalParams params = new GlobalParams();
+        String appiumServerUrl;
+        GlobalParams params = GlobalParams.getInstance();
         Properties props = new PropertyManager().getProps();
 
         if(driver == null){
             try{
-                utils.log().info("initializing Appium driver");
-                String appiumServerUrl = props.getProperty("appiumURL");
+                if (params.getEnv().equals("prod")) {
+                    appiumServerUrl = props.getProperty("browserstack.url");
+                } else {
+                    appiumServerUrl = props.getProperty("appiumHost") + ":" + props.getProperty("appiumPort");
+                }
 
                 switch(params.getPlatformName()){
 
-                    case "Android":
+                    case "android":
+                        System.out.println("Thread: " + Thread.currentThread().getId() + "| AndroidDriver" + new CapabilitiesManager().getCaps());
+
                         driver = new AndroidDriver(new URL(appiumServerUrl), new CapabilitiesManager().getCaps());
                         this.setDriver(driver);
                         break;
-                    case "iOS":
+                    case "ios":
+                        System.out.println("Thread: " + Thread.currentThread().getId() + "| IOSDriver" + new CapabilitiesManager().getCaps());
                         driver = new IOSDriver(new URL(appiumServerUrl), new CapabilitiesManager().getCaps());
                         break;
                 }
                 if(driver == null){
                     throw new Exception("driver is null. ABORT!!!");
                 }
-                utils.log().info("Driver is initialized");
+//                utils.log().info("Driver is initialized");
 //                this.driver.set(driver);
             } catch (IOException e) {
                 e.printStackTrace();
